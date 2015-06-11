@@ -4,6 +4,8 @@
  *
  ****************************************/
 
+require('ObjectUtils');
+
 function AppKernel(json) {
     var defaultParameters = {
         inputId: 'input',
