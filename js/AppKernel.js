@@ -18,5 +18,11 @@ function AppKernel(json) {
         parameters = ObjectUtils.merge(defaultParameters, json);
     }
 
+    function getParameters() {
+        return parameters;
+    }
+
+    this.getParameters = getParameters;
+
     init();
 }
