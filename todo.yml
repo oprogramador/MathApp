@@ -4,6 +4,11 @@ todo:
     equations: no
     function_graphics: no
     graphical_formula: no
-    require_js: no
+    require_js: yes
     scripting: no
-    unit_test: no
+    unit_test: yes
+    bugs:
+        instant_test: no 
+    tests:
+        chrome: no
+        mobile: no
