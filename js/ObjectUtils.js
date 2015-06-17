@@ -10,6 +10,22 @@ var ObjectUtils;
 
 (function() {
     function MyObject() {
+        function eee() {
+
+        }
+
+        function dede() {
+
+        }
+
+        function cece() {
+
+        }
+
+        function blabla() {
+
+        }
+
         function clone(x) {
             var res = {};
             for(var i in x) res[i] = x[i];
