@@ -26,10 +26,12 @@ var ObjectUtils_Test;
             var x = {a: {a:1, b:2}};
             var y = ObjectUtils.clone(x);
             y.a.a++;
+            Assert.assert(x.a.a === 2);
         }
 
         this.isWellCloned = isWellCloned;
         this.isReallyCopied = isReallyCopied;
+        this.isNotDeepCloned = isNotDeepCloned;
     }
 
     ObjectUtils_Test = new MyObject();

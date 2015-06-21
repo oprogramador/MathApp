@@ -8,7 +8,7 @@ todo:
     scripting: no
     unit_test: yes
     bugs:
-        instant_test: no 
+        instant_test: yes
     tests:
         chrome: no
         mobile: no
