@@ -7,7 +7,7 @@
 function Engine(parameters) {
     function addListeners() {
         $('#'+parameters.inputId).keyup(function() {
-            $('#'+parameters.outputId).val(calculate(this.value));
+            $('#'+parameters.outputId).html(calculate(this.value));
         });
     }
 
@@ -19,7 +19,7 @@ function Engine(parameters) {
             var res = eval(code);
             //console.log(typeof(res));
             //if(typeof(res) === 'undefined') throw new Error();
-            if(typeof(res) !== 'number') throw new Error();
+            //if(typeof(res) !== 'number') throw new Error();
             return res;
         } catch(e) {
             return 'error';

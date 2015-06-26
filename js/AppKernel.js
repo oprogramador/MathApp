@@ -4,35 +4,46 @@
  *
  ****************************************/
 
-require('ObjectUtils');
-require('Engine');
+var AppKernel;
 
-function AppKernel(json) {
-    var defaultParameters = {
-        engine: {
-            inputId: 'input',
-            outputId: 'output',
+(function() {
+    require([
+        'ObjectUtils',
+        'Engine'
+        ],
+        {
+            callback: loadClass
+        });
+
+    function loadClass() {
+        AppKernel = function(json) {
+            var defaultParameters = {
+                engine: {
+                    inputId: 'input',
+                    outputId: 'output',
+                }
+            }
+
+            var parameters;
+            var engine;
+
+            function init() {
+                parameters = ObjectUtils.merge(defaultParameters, json);
+                engine = new Engine(parameters.engine);
+            }
+
+            function getParameters() {
+                return parameters;
+            }
+
+            function getEngine() {
+                return engine;
+            }
+
+            this.getParameters = getParameters;
+            this.getEngine = getEngine;
+
+            init();
         }
     }
-
-    var parameters;
-    var engine;
-
-    function init() {
-        parameters = ObjectUtils.merge(defaultParameters, json);
-        engine = new Engine(parameters.engine);
-    }
-
-    function getParameters() {
-        return parameters;
-    }
-
-    function getEngine() {
-        return engine;
-    }
-
-    this.getParameters = getParameters;
-    this.getEngine = getEngine;
-
-    init();
-}
+})()

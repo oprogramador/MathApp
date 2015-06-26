@@ -4,8 +4,6 @@
  *
  ****************************************/
 
-require('Assert');
-
 var ObjectUtils;
 
 (function() {

@@ -8,41 +8,63 @@ var Require;
 
 (function() {
     function MyObject() {
-        function require(name, args) {
-            try{
-                eval(name);
-            } catch(e) {
-                load(name, args);
+        function require(names, args) {
+            var loadedScripts = [];
+            for(var i=0; i<names.length; i++) {
+                try{
+                    eval(names[i]);
+                } catch(e) {
+                    load(names[i], args, loadedScripts, names.length);
+                }
             }
         }
 
-        function reload(name, args) {
-            try{
-                eval(name);
-                replace(name, args);
-            } catch(e) {
-                load(name, args);
+        function reload(names, args) {
+            var loadedScripts = [];
+            for(var i=0; i<names.length; i++) {
+                try{
+                    eval(names[i]);
+                    replace(names[i], args, loadedScripts, names.length);
+                } catch(e) {
+                    load(names[i], args, loadedScripts, names.length);
+                }
             }
         }
 
-        function replace(name, args) {
+        function replace(name, args, loadedScripts, scriptsNr) {
             var script = document.querySelector('script[id='+name+']');
             script.parentNode.removeChild(script);
-            load(name, args);
+            load(name, args, loadedScripts, scriptsNr);
         }
 
-        function load(name, args) {
+        function load(name, args, loadedScripts, scriptsNr) {
             if(typeof(args) === 'undefined') args = {};
             if(typeof(args.path) === 'undefined') args.path = 'js';
             var script = document.createElement('script');
             script.id = name;
             script.src = args.path+'/'+name+'.js';
-            console.log('script='+script);
+
+            function callback() {
+                console.log('loaded: '+name);
+                loadedScripts.push(name);
+
+                function tryCallback() {
+                    try {
+                        for(var i=0; i<loadedScripts.length; i++) eval(loadedScripts[i]);
+                        args.callback();
+                    } catch(e) {
+                        setTimeout(tryCallback, 100);
+                    }
+                }
+
+                if(loadedScripts.length === scriptsNr) tryCallback();
+            }
+
             if(typeof(args.callback === 'function')) {
-                script.onload = args.callback;
+                script.onload = callback;
                 script.onreadystatechange = function() {
                     if(this.readyState === 'complete') {
-                        args.callback();
+                        callback();
                     }
                 }
             }

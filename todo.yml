@@ -1,14 +1,18 @@
 todo:
-    arithemtics: no
+    ajax: no
+    arithemtics: yes
+    bugs:
+        key_events_on_chrome: no
     css: no
     equations: no
     function_graphics: no
     graphical_formula: no
+    infinite_loop_stop: no
+    multithreading: no
     require_js: yes
-    scripting: no
+    scripting: yes
+    js_tutorial: no
     unit_test: yes
-    bugs:
-        instant_test: yes
     tests:
         chrome: no
         mobile: no
