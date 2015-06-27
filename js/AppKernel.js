@@ -21,6 +21,7 @@ var AppKernel;
                 engine: {
                     inputId: 'input',
                     outputId: 'output',
+                    submitId: 'submit',
                 }
             }
 

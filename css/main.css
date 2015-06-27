@@ -4,9 +4,30 @@
  *
  ****************************************/
 
-body {
-    padding: 50px;
+html, body {
+    height: 100%;
 }
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#input {
+    color: white;
+    background-color: black;
+}
+
+#output {
+    color: green;
+    background-color: #d0d0d0;
+}
+
 
 svg {
     background-color: #e0e0e0;

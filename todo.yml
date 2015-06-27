@@ -3,16 +3,27 @@ todo:
     arithemtics: yes
     bugs:
         key_events_on_chrome: yes
-    css: no
+    css:
+        animation: no
+        background: no
+        line_numbers: no
     equations: no
     function_graphics: no
     graphical_formula: no
     infinite_loop_stop: no
     localStorage: no
-    multithreading: no
+    math_constants: no
+    multithreading: yes
     optimizations: no
     require_js: yes
+    security:
+        infinite_loop: yes
+        infinite_memory: no
+        variables:
+            local: yes
+            global: yes
     scripting: yes
+    signature: no
     js_tutorial: no
     unit_test: yes
     tests:
