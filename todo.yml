@@ -10,21 +10,39 @@ todo:
         line_numbers: yes
     equations: no
     function_graphics: no
-    localStorage: no
+    js_tutorial: no
+    localStorage:
+        change_name: yes
+        copy: yes
+        delete: yes
+        download:
+            all: yes
+            single: yes
+        hints: yes
+        list: yes
+        name_confict_check: no
+        new: no
+        open: yes
+        save: yes
+        save_this: no
+        scrollbar: yes
+        upload: no
+        warning_at_close:
+            new_file: no
+            tab: no
     math_constants: no
     multithreading: yes
     optimizations: no
     require_js: yes
+    scripting: yes
     security:
         infinite_loop: yes
         infinite_memory: no
         variables:
-            local: yes
             global: yes
-    scripting: yes
+            local: yes
     signature: no
-    js_tutorial: no
-    unit_test: yes
     tests:
         android: yes
         chrome: yes
+    unit_test: yes

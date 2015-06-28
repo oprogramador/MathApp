@@ -27,6 +27,7 @@ var AppKernel;
                     saveId: 'save',
                     fileListId: 'fileList',
                     fileTemplateId: 'fileTemplate',
+                    downloadAllId: 'downloadAll'
                 }
             }
 

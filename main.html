@@ -9,12 +9,15 @@
 <script src="lib/jquery-1.11.1.min.js"></script>
 <script src="lib/parallel.js"></script>
 <script src="lib/edit_area/edit_area_full.js"></script>
+<script src="lib/FileSaver.min.js"></script>
+<script src="lib/jszip/dist/jszip.js"></script>
 <script src="js/Require.js"></script>
 <script src="js/main.js"></script>
 <link rel="stylesheet" href="css/main.css"/>
 </head>
 <body>
 <h1>MathApp</h1>
+<h4>Interactive Javascript editor</h2>
 <table width="800px" height="400px">
     <tr width="100%" height="100%">
         <td width="60%" height="100%">
@@ -32,6 +35,9 @@
             <div>
                 <button style="width:100%; height:20%" id="save">Save</button>
             </div>
+            <div>
+                <button style="width:100%; height:20%" id="downloadAll">Download all</button>
+            </div>
         </td>
         <td width="20%" height="100%">
             <textarea id="output" style="width:100%; height:100%" disabled></textarea>
@@ -47,10 +53,16 @@
                     <input name="name" style="width:90%; display:none;" value="%name%"/>
                 </td>
                 <td>
-                    <button name="edit" class="edit" style="float:right"></button>
+                    <button name="edit" class="edit" title="edit"></button>
                 </td>
                 <td>
-                    <button name="delete" class="delete" style="float:right"></button>
+                    <button name="copy" class="copy" title="copy"></button>
+                </td>
+                <td>
+                    <button name="download" class="download" title="download"></button>
+                </td>
+                <td>
+                    <button name="delete" class="delete" title="delete"></button>
                 </td>
             </tr>
         </table>
