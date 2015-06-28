@@ -22,6 +22,11 @@ var AppKernel;
                     inputId: 'input',
                     outputId: 'output',
                     submitId: 'submit',
+                    iframeId: 'frame_input',
+                    innerTextareaId: 'textarea',
+                    saveId: 'save',
+                    fileListId: 'fileList',
+                    fileTemplateId: 'fileTemplate',
                 }
             }
 
@@ -33,15 +38,10 @@ var AppKernel;
                 engine = new Engine(parameters.engine);
             }
 
-            function getParameters() {
-                return parameters;
-            }
-
             function getEngine() {
                 return engine;
             }
 
-            this.getParameters = getParameters;
             this.getEngine = getEngine;
 
             init();

@@ -16,6 +16,15 @@ html {
 body {
     display: table-cell;
     vertical-align: middle;
+    background-color: black;
+}
+
+h1 {
+    color: white;
+}
+
+#fileList {
+    color: white;
 }
 
 #input {
@@ -28,6 +37,19 @@ body {
     background-color: #d0d0d0;
 }
 
+.edit {
+    background-image: url(../img/edit.png);
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
+
+.delete {
+    background-image: url(../img/delete.png);
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
 
 svg {
     background-color: #e0e0e0;

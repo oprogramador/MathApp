@@ -4,6 +4,7 @@
 -->
 <html>
 <head>
+<title>MathApp</title>
 <meta charset="utf-8"/>
 <script src="lib/jquery-1.11.1.min.js"></script>
 <script src="lib/parallel.js"></script>
@@ -19,13 +20,31 @@
         <td width="60%" height="100%">
             <textarea id="input" style="width:100%; height:100%"></textarea>
         </td>
-        <td width="10%" height="20%">
-            <button id="submit" style="width:100%; height:100%">SUBMIT</button>  
+        <td width="20%" height="100%">
+            <div>
+                <button id="submit" style="width:100%; height:20%">
+                    SUBMIT
+                    <br/>
+                    or press 'ctrl+enter'
+                </button> 
+            </div>
+            <div id="fileList"></div>
+            <div>
+                <button style="width:100%; height:20%" id="save">Save</button>
+            </div>
         </td>
-        <td width="30%" height="100%">
+        <td width="20%" height="100%">
             <textarea id="output" style="width:100%; height:100%" disabled></textarea>
         </td>
     </tr>
 </table>
+<div style="display:none;" id="fileTemplate">
+    <div style="height:32px" id="%id%">
+        <span name="name-display" style="float:left">%name%</span>
+        <input name="name" style="display:none; width:100%" value="%name%"/>
+        <button name="delete" class="delete" style="float:right"></button>
+        <button name="edit" class="edit" style="float:right"></button>
+    </div>
+</div>
 </body>
 </html>

@@ -5,12 +5,11 @@ todo:
         key_events_on_chrome: yes
     css:
         animation: no
-        background: no
-        line_numbers: no
+        background: yes
+        buttons: no
+        line_numbers: yes
     equations: no
     function_graphics: no
-    graphical_formula: no
-    infinite_loop_stop: no
     localStorage: no
     math_constants: no
     multithreading: yes
@@ -27,5 +26,5 @@ todo:
     js_tutorial: no
     unit_test: yes
     tests:
+        android: yes
         chrome: yes
-        mobile: yes
