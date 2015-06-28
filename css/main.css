@@ -51,6 +51,10 @@ h1 {
     height: 32px;
 }
 
+.file_selected {
+    background-color: #800000;
+}
+
 svg {
     background-color: #e0e0e0;
 }

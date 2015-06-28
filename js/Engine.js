@@ -10,13 +10,22 @@ function Engine(parameters) {
             submit();
         });
         $('#'+parameters.saveId).click(function() {
-            save();
+            showInputToSave();
         });
         $(document).on('click', '[id^=file-] [name=delete]', function() {
             deleteFile(this);
         });
         $(document).on('click', '[id^=file-] [name=name-display]', function() {
             open(this);
+        });
+        $(document).on('keydown', '[id^=file-] [name=name]', function(e) {
+            if(e.keyCode === 13) changeFileName(this);
+        });
+        $(document).on('click', '[id^=file-] [name=edit]', function() {
+            editFileName(this);
+        });
+        $(document).on('keydown', '#newFileName', function(e) {
+            if(e.keyCode === 13) save();
         });
         function loadIframeEvents() {
             if($('#'+parameters.iframeId).length < 1) setTimeout(loadIframeEvents, 100);
@@ -32,9 +41,30 @@ function Engine(parameters) {
         loadIframeEvents();
     }
 
+    function changeFileName(element) {
+        var div = $(element).closest('div')[0];
+        var fileId = div.id.split('-')[1];
+        var files = JSON.parse(localStorage.files);
+        files[fileId].name = element.value;
+        localStorage.files = JSON.stringify(files);
+        div = $(div);
+        div.find('[name=name-display]').html(element.value).show();
+        div.find('[name=name]').hide();
+    }
+
+    function editFileName(element) {
+        var div = $(element).closest('div');
+        div.find('[name=name-display]').hide();
+        div.find('[name=name]').show();
+    }
+
     function open(element) {
         var div = $(element).closest('div')[0];
         var fileId = div.id.split('-')[1];
+        $('#'+parameters.fileListId+' div').removeClass('file_selected');
+        $(div).addClass('file_selected');
+        var files = JSON.parse(localStorage.files);
+        editAreaLoader.setValue(parameters.inputId, files[fileId].content);
     }
 
     function deleteFile(element) {
@@ -46,16 +76,23 @@ function Engine(parameters) {
         $(div).remove();
     }
 
+    function showInputToSave() {
+        $('#newFileName').show();
+    }
+
     function save() {
         if(typeof localStorage.files === 'undefined') files = {};
         else files = JSON.parse(localStorage.files);
         var id = Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
-        files[id] = {
+        var file = {
             id: id,
-            name: Math.random().toString(36).substring(2, 10),
+            name: $('#newFileName').val(),
             content: editAreaLoader.getValue(parameters.inputId),
         }
+        files[id] = file;
         localStorage.files = JSON.stringify(files);
+        $('#newFileName').hide();
+        addFileToDisplay(file);
     }
 
     function submit() {
@@ -100,29 +137,28 @@ function Engine(parameters) {
         return parameters;
     }
 
+    function addFileToDisplay(file) {
+        var html = $('#'+parameters.fileTemplateId).html();
+        var newHtml = html.replace(/%name%/g, file.name);
+        newHtml = newHtml.replace(/%id%/g, 'file-'+file.id);
+        $('#'+parameters.fileListId).append(newHtml);
+    }
+
     function displayFiles() {
         if(typeof localStorage.files === 'undefined') return;
         var files = JSON.parse(localStorage.files);
-        var html = $('#'+parameters.fileTemplateId).html();
         var keys = Object.keys(files);
         for(var i=0; i<keys.length; i++) {
-            var file = files[keys[i]];
-            var newHtml = html.replace(/%name%/g, file.name);
-            newHtml = newHtml.replace(/%id%/g, 'file-'+file.id);
-            $('#'+parameters.fileListId).append(newHtml);
+            addFileToDisplay(files[keys[i]]);
         }
+        $('#'+parameters.fileListId).append('<input id="newFileName"/>');
+        $('#newFileName').hide();
     }
 
     function init() {
         addListeners();
         displayFiles();
     }
-
-    var sin = Math.sin;
-    var cos = Math.cos;
-    var tan = Math.tan;
-    var pi = Math.PI;
-    var e = Math.E;
 
     this.getParameters = getParameters;
 

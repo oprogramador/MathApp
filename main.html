@@ -40,10 +40,20 @@
 </table>
 <div style="display:none;" id="fileTemplate">
     <div style="height:32px" id="%id%">
-        <span name="name-display" style="float:left">%name%</span>
-        <input name="name" style="display:none; width:100%" value="%name%"/>
-        <button name="delete" class="delete" style="float:right"></button>
-        <button name="edit" class="edit" style="float:right"></button>
+        <table>
+            <tr>
+                <td width="100%">
+                    <span name="name-display" style="width:90%">%name%</span>
+                    <input name="name" style="width:90%; display:none;" value="%name%"/>
+                </td>
+                <td>
+                    <button name="edit" class="edit" style="float:right"></button>
+                </td>
+                <td>
+                    <button name="delete" class="delete" style="float:right"></button>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 </body>
