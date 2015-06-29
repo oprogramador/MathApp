@@ -6,10 +6,17 @@
 
 function Engine(parameters) {
     var fileToCopy;
+    var openedFileId;
 
     function addListeners() {
+        window.addEventListener('beforeunload', function(e) {
+            updateOpenedFile();
+        });
         $('#'+parameters.submitId).click(function() {
             submit();
+        });
+        $('#'+parameters.newId).click(function() {
+            openNewFile();
         });
         $('#'+parameters.saveId).click(function() {
             showInputToSave();
@@ -35,14 +42,20 @@ function Engine(parameters) {
         $(document).on('click', '[id^=file-] [name=download]', function() {
             download(this);
         });
-        $(document).on('keydown', '#newFileName', function(e) {
+        $(document).on('click', '#newFileName [name=ok]', function() {
+            enterInput();
+        });
+        $(document).on('click', '#newFileName [name=cancel]', function() {
+            cancelInput();
+        });
+        $(document).on('keydown', '#newFileName [name=input]', function(e) {
             if(e.keyCode === 13) saveOrCopy();
         });
         function loadIframeEvents() {
             if($('#'+parameters.iframeId).length < 1) setTimeout(loadIframeEvents, 100);
             else {
                 $('#'+parameters.iframeId).contents().find('#'+parameters.innerTextareaId).keypress(function(e) {
-                    if(e.ctrlKey && e.keyCode === 13) {
+                    if(e.ctrlKey && (e.keyCode === 13 || e.keyCode === 10)) {
                         e.preventDefault();
                         submit();
                     }
@@ -50,6 +63,38 @@ function Engine(parameters) {
             }
         }
         loadIframeEvents();
+    }
+
+    function openNewFile() {
+        updateOpenedFile();
+        openedFileId = undefined;
+        removeSelection();
+        editAreaLoader.setValue(parameters.inputId, '');
+    }
+
+    function enterInput() {
+        var e = $.Event('keydown');
+        e.keyCode = 13;
+        $('#newFileName').find('[name=input]').trigger(e);
+    }
+
+    function cancelInput() {
+        $('#newFileName').find('[name=input]').val('');
+        $('#newFileName').hide();
+    }
+
+    function checkNameConflict(name, fileId) {
+        if(typeof fileId === 'undefined') fileId = '';
+        var files = JSON.parse(localStorage.files);
+        var keys = Object.keys(files);
+        for(var i=0; i<keys.length; i++) {
+            var file = files[keys[i]];
+            if(file.id !== fileId && file.name === name) {
+                alert('File name conflict');
+                return false;
+            }
+        }
+        return true;
     }
 
     function downloadAll() {
@@ -76,6 +121,7 @@ function Engine(parameters) {
         var div = $(element).closest('div')[0];
         var fileId = div.id.split('-')[1];
         var files = JSON.parse(localStorage.files);
+        if(!checkNameConflict(element.value, fileId)) return;
         files[fileId].name = element.value;
         localStorage.files = JSON.stringify(files);
         div = $(div);
@@ -93,11 +139,21 @@ function Engine(parameters) {
         }
     }
 
+    function removeSelection() {
+        $('#'+parameters.fileListId+' div').removeClass('file_selected');
+    }
+
+    function addSelection(fileId) {
+        $('#file-'+fileId).addClass('file_selected');
+    }
+
     function open(element) {
+        updateOpenedFile();
         var div = $(element).closest('div')[0];
         var fileId = div.id.split('-')[1];
-        $('#'+parameters.fileListId+' div').removeClass('file_selected');
-        $(div).addClass('file_selected');
+        removeSelection();
+        addSelection(fileId);
+        openedFileId = fileId;
         var files = JSON.parse(localStorage.files);
         editAreaLoader.setValue(parameters.inputId, files[fileId].content);
     }
@@ -111,8 +167,20 @@ function Engine(parameters) {
         $(div).remove();
     }
 
+    function updateOpenedFile() {
+        if(typeof openedFileId === 'undefined') return;
+        var files = JSON.parse(localStorage.files);
+        files[openedFileId].content = editAreaLoader.getValue(parameters.inputId);
+        localStorage.files = JSON.stringify(files);
+    }
+
     function showInputToSave() {
-        $('#newFileName').val('').show();
+        if(typeof openedFileId === 'undefined') {
+            $('#newFileName').find('[name=input]').val('');
+            $('#newFileName').show();
+        } else {
+            updateOpenedFile();
+        }
     }
 
     function showInputToCopy(element) {
@@ -120,7 +188,8 @@ function Engine(parameters) {
         var fileId = div.id.split('-')[1];
         var files = JSON.parse(localStorage.files);
         fileToCopy = files[fileId];
-        $('#newFileName').val(fileToCopy.name).show();
+        $('#newFileName').find('[name=input]').val(fileToCopy.name);
+        $('#newFileName').show();
     }
 
     function saveOrCopy() {
@@ -133,7 +202,8 @@ function Engine(parameters) {
         var newFile = ObjectUtils.clone(fileToCopy);
         var id = Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
         newFile.id = id;
-        newFile.name = $('#newFileName').val();
+        newFile.name = $('#newFileName').find('[name=input]').val();
+        if(!checkNameConflict(newFile.name)) return;
         files[id] = newFile;
         localStorage.files = JSON.stringify(files);
         fileToCopy = undefined;
@@ -147,13 +217,16 @@ function Engine(parameters) {
         var id = Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
         var file = {
             id: id,
-            name: $('#newFileName').val(),
+            name: $('#newFileName').find('[name=input]').val(),
             content: editAreaLoader.getValue(parameters.inputId),
         }
+        if(!checkNameConflict(file.name)) return;
+        openedFileId = id;
         files[id] = file;
         localStorage.files = JSON.stringify(files);
         $('#newFileName').hide();
         addFileToDisplay(file);
+        addSelection(id);
     }
 
     function submit() {
@@ -212,7 +285,7 @@ function Engine(parameters) {
         for(var i=0; i<keys.length; i++) {
             addFileToDisplay(files[keys[i]]);
         }
-        $('#'+parameters.fileListId).after('<input id="newFileName"/>');
+        $('#'+parameters.fileListId).after('<div id="newFileName">'+$('#'+parameters.inputTemplateId).html()+'</div>');
         $('#newFileName').hide();
     }
 

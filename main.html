@@ -33,6 +33,9 @@
             </div>
             <div id="fileList"></div>
             <div>
+                <button style="width:100%; height:20%" id="new">New</button>
+            </div>
+            <div>
                 <button style="width:100%; height:20%" id="save">Save</button>
             </div>
             <div>
@@ -53,7 +56,7 @@
                     <input name="name" style="width:90%; display:none;" value="%name%"/>
                 </td>
                 <td>
-                    <button name="edit" class="edit" title="edit"></button>
+                    <button name="edit" class="edit" title="edit name"></button>
                 </td>
                 <td>
                     <button name="copy" class="copy" title="copy"></button>
@@ -67,6 +70,21 @@
             </tr>
         </table>
     </div>
+</div>
+<div style="display:none" id="inputTemplate">
+    <table>
+        <tr>
+            <td>
+                <input name="input"/>
+            </td>
+            <td>
+                <button name="ok" class="ok" title="OK"></button>
+            </td>
+            <td>
+                <button name="cancel" class="cancel" title="cancel"></button>
+            </td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>

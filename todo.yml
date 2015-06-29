@@ -3,15 +3,18 @@ todo:
     arithemtics: yes
     bugs:
         key_events_on_chrome: yes
+        'ctrl+enter on chrome': yes
     css:
         animation: no
         background: yes
         buttons: no
         line_numbers: yes
+    doc: yes
     equations: no
     function_graphics: no
     js_tutorial: no
     localStorage:
+        cancel: yes
         change_name: yes
         copy: yes
         delete: yes
@@ -20,11 +23,11 @@ todo:
             single: yes
         hints: yes
         list: yes
-        name_confict_check: no
-        new: no
+        name_confict_check: yes
+        new: yes
         open: yes
         save: yes
-        save_this: no
+        save_this: yes
         scrollbar: yes
         upload: no
         warning_at_close:
