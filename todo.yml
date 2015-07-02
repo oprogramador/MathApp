@@ -38,7 +38,9 @@ todo:
     math_constants: no
     multithreading: yes
     optimizations: no
-    require_js: yes
+    require_js:
+        load: yes
+        encode: no
     scripting: yes
     security:
         infinite_loop: yes
