@@ -4,6 +4,8 @@ todo:
     bugs:
         key_events_on_chrome: yes
         'ctrl+enter on chrome': yes
+        mobile_save: yes
+        mobile_choose_difficult: no
     css:
         animation: no
         background: yes

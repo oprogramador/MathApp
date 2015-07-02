@@ -84,6 +84,7 @@ function Engine(parameters) {
     }
 
     function checkNameConflict(name, fileId) {
+        if(typeof localStorage.files === 'undefined') return true;
         if(typeof fileId === 'undefined') fileId = '';
         var files = JSON.parse(localStorage.files);
         var keys = Object.keys(files);
@@ -279,11 +280,12 @@ function Engine(parameters) {
     }
 
     function displayFiles() {
-        if(typeof localStorage.files === 'undefined') return;
-        var files = JSON.parse(localStorage.files);
-        var keys = Object.keys(files);
-        for(var i=0; i<keys.length; i++) {
-            addFileToDisplay(files[keys[i]]);
+        if(typeof localStorage.files !== 'undefined') {
+            var files = JSON.parse(localStorage.files);
+            var keys = Object.keys(files);
+            for(var i=0; i<keys.length; i++) {
+                addFileToDisplay(files[keys[i]]);
+            }
         }
         $('#'+parameters.fileListId).after('<div id="newFileName">'+$('#'+parameters.inputTemplateId).html()+'</div>');
         $('#newFileName').hide();
