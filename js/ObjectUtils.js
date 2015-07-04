@@ -29,9 +29,23 @@ var ObjectUtils;
             return res;
         }
 
+        function randomString(n) {
+            var x = '';
+            for(var i=0; i<n; i++) x += String.fromCharCode(97 + Math.random()*26);
+            return x;
+        }
+
+        function randomId(name) {
+            if(typeof name === 'undefined') name = '';
+            if(name === '') return randomString(12);
+            else return name+'-'+randomString(12);
+        }
+
         this.clone = clone;
         this.deepClone = deepClone;
         this.merge = merge;
+        this.randomString = randomString;
+        this.randomId = randomId;
     }
     ObjectUtils = new MyObject();
 })();

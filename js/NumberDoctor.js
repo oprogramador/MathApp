@@ -4,16 +4,25 @@
  *
  ****************************************/
 
-function IntegerDoctor(text) {
+function NumberDoctor(text) {
+    var allNumbers;
     var allIntegers;
     var allPrimes;
 
+    function generateAllNumbers() {
+        allNumbers = text.match(/[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/g).map(function(x){ return parseFloat(x); });
+    }
+
     function generateAllIntegers() {
-        allIntegers = text.match(/[0-9]+/g).map(function(x){ return parseInt(x); });
+       allIntegers = allNumbers.filter(function(x){ return x === Math.floor(x); });
     }
 
     function generateAllPrimes() {
         allPrimes = allIntegers.filter(isPrime).sort(function(a, b){ return a-b; });
+    }
+
+    function getAllNumbers() {
+        return allNumbers;
     }
 
     function getAllIntegers() {
@@ -35,12 +44,14 @@ function IntegerDoctor(text) {
     }
 
     function init() {
+        generateAllNumbers();
         generateAllIntegers();
         generateAllPrimes();
     }
 
     init();
 
+    this.getAllNumbers = getAllNumbers;
     this.getAllIntegers = getAllIntegers;
     this.getAllPrimes = getAllPrimes;
     this.getMaxPrime = getMaxPrime;

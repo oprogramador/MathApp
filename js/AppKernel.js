@@ -28,8 +28,10 @@ var AppKernel;
                     fileListId: 'fileList',
                     fileTemplateId: 'fileTemplate',
                     inputTemplateId: 'inputTemplate',
+                    statsDialogTemplateId: 'statsDialogTemplate',
                     downloadAllId: 'downloadAll',
                     newId: 'new',
+                    statsId: 'stats',
                 }
             }
 

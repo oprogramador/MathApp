@@ -10,25 +10,31 @@ var Require;
     function MyObject() {
         function require(names, args) {
             var loadedScripts = [];
+            var isLoadedAll = true;
             for(var i=0; i<names.length; i++) {
                 try{
                     eval(names[i]);
                 } catch(e) {
+                    isLoadedAll = false;
                     load(names[i], args, loadedScripts, names.length);
                 }
             }
+            if(isLoadedAll) if(typeof args.callback === 'function') args.callback();
         }
 
         function reload(names, args) {
             var loadedScripts = [];
+            var isLoadedAll = true;
             for(var i=0; i<names.length; i++) {
                 try{
                     eval(names[i]);
                     replace(names[i], args, loadedScripts, names.length);
                 } catch(e) {
+                    isLoadedAll = false;
                     load(names[i], args, loadedScripts, names.length);
                 }
             }
+            if(isLoadedAll) if(typeof args.callback === 'function') args.callback();
         }
 
         function replace(name, args, loadedScripts, scriptsNr) {
@@ -44,6 +50,7 @@ var Require;
             script.id = name;
             script.src = args.path+'/'+name+'.js';
 
+
             function callback() {
                 console.log('loaded: '+name);
                 loadedScripts.push(name);
@@ -51,7 +58,7 @@ var Require;
                 function tryCallback() {
                     try {
                         for(var i=0; i<loadedScripts.length; i++) eval(loadedScripts[i]);
-                        args.callback();
+                        if(typeof args.callback === 'function') args.callback();
                     } catch(e) {
                         setTimeout(tryCallback, 100);
                     }
