@@ -30,7 +30,7 @@ function MapEditor(parameters) {
             map: map,
         });
 
-        map.panTo(point);
+        //map.panTo(point);
     } 
 
     function loadPoints() {
@@ -64,6 +64,8 @@ function MapEditor(parameters) {
         try {
             var data = JSON.parse(value);
             points = data.points.map(function(x){ return new google.maps.LatLng(x.A, x.F); });
+            map.setCenter(new google.maps.LatLng(data.center.A, data.center.F));
+            map.setZoom(data.zoom);
             loadPoints();
         } catch(e) {
             e.message;
@@ -71,7 +73,11 @@ function MapEditor(parameters) {
     }
 
     function getValue() {
-        return JSON.stringify({points: points});
+        return JSON.stringify({
+            points: points,
+            center: map.getCenter(),
+            zoom: map.getZoom(),
+        });
     }
 
     function getMap() {
