@@ -53,12 +53,14 @@ function MapEditor(parameters) {
     }
 
     function init() {
+        if(typeof google.maps === 'undefined') return;
         createMap();
         addListeners();
     }
 
     function setValue(value) {
         createMap();
+        addListeners();
         try {
             var data = JSON.parse(value);
             points = data.points.map(function(x){ return new google.maps.LatLng(x.A, x.F); });
@@ -72,7 +74,12 @@ function MapEditor(parameters) {
         return JSON.stringify({points: points});
     }
 
+    function getMap() {
+        return map;
+    }
+
     this.setValue = setValue;
     this.getValue = getValue;
+    this.getMap = getMap;
     init();
 }

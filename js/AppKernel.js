@@ -47,6 +47,7 @@ var AppKernel;
             var parameters;
             var fileManager;
             var engine;
+            var mapEditor;
 
             function init() {
                 parameters = ObjectUtils.merge(defaultParameters, json);
@@ -62,7 +63,12 @@ var AppKernel;
                 return engine;
             }
 
+            function getMapEditor() {
+                return mapEditor;
+            }
+
             this.getEngine = getEngine;
+            this.getMapEditor = getMapEditor;
 
             init();
         }

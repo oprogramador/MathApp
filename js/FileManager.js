@@ -58,8 +58,8 @@ function FileManager(parameters, editors) {
         var name = element.getAttribute('name');
         $('#'+parameters.newFileViewId).hide();
         openedEditorName = name;
-        getOpenedEditor().setValue('');
         $('#'+parameters.generalEditorId+' [name='+openedEditorName+']').show();
+        getOpenedEditor().setValue('');
     }
 
     function openNewFile() {
