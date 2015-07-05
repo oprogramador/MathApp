@@ -12,6 +12,7 @@
 <script src="lib/edit_area/edit_area_full.js"></script>
 <script src="lib/FileSaver.min.js"></script>
 <script src="lib/jszip/dist/jszip.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js"></script>
 <script src="js/Require.js"></script>
 <script src="js/main.js"></script>
 <link rel="stylesheet" href="lib/jquery-ui-1.11.4/jquery-ui.theme.min.css"/>
@@ -48,9 +49,9 @@
                         </tr>
                     </table>
                 </div>
-            </div>
-            <div id="mapEditor" style="display:none">
-                <div id="map-canvas"></div>
+                <div name="mapEditor" style="display:none">
+                    <div id="mapCanvas" style="width:500px;height:380px;"></div>
+                </div>
             </div>
             <div id="newFileView" style="display:none">
                 <table width="800px" height="400px"> 

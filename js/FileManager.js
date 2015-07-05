@@ -154,7 +154,14 @@ function FileManager(parameters, editors) {
         addSelection(fileId);
         openedFileId = fileId;
         var files = JSON.parse(localStorage.files);
+        if(files[fileId].type !== openedEditorName) changeEditorAtFileOpen(files[fileId]);
         getOpenedEditor().setValue(files[fileId].content);
+    }
+
+    function changeEditorAtFileOpen(file) {
+        $('#'+parameters.generalEditorId+' [name='+openedEditorName+']').hide();
+        openedEditorName = file.type;
+        $('#'+parameters.generalEditorId+' [name='+openedEditorName+']').show();
     }
 
     function deleteFile(element) {
@@ -217,6 +224,7 @@ function FileManager(parameters, editors) {
         var file = {
             id: id,
             name: $('#newFileName').find('[name=input]').val(),
+            type: openedEditorName,
             content: getOpenedEditor().getValue(),
         }
         if(!checkNameConflict(file.name)) return;

@@ -10,7 +10,8 @@ var AppKernel;
     require([
         'ObjectUtils',
         'FileManager',
-        'Engine'
+        'Engine',
+        'MapEditor',
         ],
         {
             callback: loadClass
@@ -37,6 +38,9 @@ var AppKernel;
                     newId: 'new',
                     newFileViewId: 'newFileView',
                     generalEditorId: 'generalEditor',
+                },
+                mapEditor: {
+                    mapCanvasId: 'mapCanvas',
                 }
             }
 
@@ -47,8 +51,10 @@ var AppKernel;
             function init() {
                 parameters = ObjectUtils.merge(defaultParameters, json);
                 engine = new Engine(parameters.engine);
+                mapEditor = new MapEditor(parameters.mapEditor);
                 fileManager = new FileManager(parameters.fileManager, {
-                        javascriptEditor: engine
+                        javascriptEditor: engine,
+                        mapEditor: mapEditor,
                 });
             }
 
