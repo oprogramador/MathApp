@@ -4,8 +4,9 @@
  *
  ****************************************/
 
-function FileManager(parameters, openedEditor) {
+function FileManager(parameters, editors) {
     var fileToCopy;
+    var openedEditorName;
     var openedFileId;
 
     function addListeners() {
@@ -20,6 +21,9 @@ function FileManager(parameters, openedEditor) {
         });
         $('#'+parameters.downloadAllId).click(function() {
             downloadAll();
+        });
+        $(document).on('click', '#'+parameters.newFileViewId+' td', function() {
+            newFileEditor(this);
         });
         $(document).on('click', '[id^=file-] [name=delete]', function() {
             deleteFile(this);
@@ -50,11 +54,20 @@ function FileManager(parameters, openedEditor) {
         });
     }
 
+    function newFileEditor(element) {
+        var name = element.getAttribute('name');
+        $('#'+parameters.newFileViewId).hide();
+        openedEditorName = name;
+        getOpenedEditor().setValue('');
+        $('#'+parameters.generalEditorId+' [name='+openedEditorName+']').show();
+    }
+
     function openNewFile() {
         updateOpenedFile();
         openedFileId = undefined;
         removeSelection();
-        openedEditor.setValue('');
+        $('#'+parameters.generalEditorId+' [name='+openedEditorName+']').hide();
+        $('#'+parameters.newFileViewId).show();
     }
 
     function enterInput() {
@@ -141,7 +154,7 @@ function FileManager(parameters, openedEditor) {
         addSelection(fileId);
         openedFileId = fileId;
         var files = JSON.parse(localStorage.files);
-        openedEditor.setValue(files[fileId].content);
+        getOpenedEditor().setValue(files[fileId].content);
     }
 
     function deleteFile(element) {
@@ -156,7 +169,7 @@ function FileManager(parameters, openedEditor) {
     function updateOpenedFile() {
         if(typeof openedFileId === 'undefined') return;
         var files = JSON.parse(localStorage.files);
-        files[openedFileId].content = openedEditor.getValue();
+        files[openedFileId].content = getOpenedEditor().getValue();
         localStorage.files = JSON.stringify(files);
     }
 
@@ -204,7 +217,7 @@ function FileManager(parameters, openedEditor) {
         var file = {
             id: id,
             name: $('#newFileName').find('[name=input]').val(),
-            content: openedEditor.getValue(),
+            content: getOpenedEditor().getValue(),
         }
         if(!checkNameConflict(file.name)) return;
         openedFileId = id;
@@ -238,7 +251,12 @@ function FileManager(parameters, openedEditor) {
         return parameters;
     }
 
+    function getOpenedEditor() {
+        return editors[openedEditorName];
+    }
+
     function init() {
+        openedEditorName = Object.keys(editors)[0];
         addListeners();
         displayFiles();
     }

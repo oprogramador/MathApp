@@ -35,6 +35,8 @@ var AppKernel;
                     inputTemplateId: 'inputTemplate',
                     downloadAllId: 'downloadAll',
                     newId: 'new',
+                    newFileViewId: 'newFileView',
+                    generalEditorId: 'generalEditor',
                 }
             }
 
@@ -45,7 +47,9 @@ var AppKernel;
             function init() {
                 parameters = ObjectUtils.merge(defaultParameters, json);
                 engine = new Engine(parameters.engine);
-                fileManager = new FileManager(parameters.fileManager, engine);
+                fileManager = new FileManager(parameters.fileManager, {
+                        javascriptEditor: engine
+                });
             }
 
             function getEngine() {

@@ -19,30 +19,47 @@
 </head>
 <body>
 <h1>MathApp</h1>
-<h4>Interactive Javascript editor</h2>
+<h4>Interactive editor</h2>
 <table>
     <tr>
         <td>
-            <div id="javascriptEditor">
-                <table width="800px" height="400px">
-                    <tr width="100%" height="100%">
-                        <td width="60%" height="100%">
-                            <textarea id="input" style="width:100%; height:100%"></textarea>
+            <div id="generalEditor">
+                <div name="javascriptEditor">
+                    <table width="800px" height="400px">
+                        <tr width="100%" height="100%">
+                            <td width="60%" height="100%">
+                                <textarea id="input" style="width:100%; height:100%"></textarea>
+                            </td>
+                            <td width="20%" height="100%">
+                                <div style="height:20%">
+                                    <button id="submit" style="width:100%; height:100%">
+                                        SUBMIT
+                                        <br/>
+                                        or press 'ctrl+enter'
+                                    </button> 
+                                </div>
+                                <div style="height:10%">
+                                    <button style="width:100%; height:100%" id="stats">Statistics</button>
+                                </div>
+                                <div style="height:70%">
+                                    <textarea id="output" style="width:100%; height:100%" disabled></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="mapEditor" style="display:none">
+                <div id="map-canvas"></div>
+            </div>
+            <div id="newFileView" style="display:none">
+                <table width="800px" height="400px"> 
+                    <tr>
+                        <td width="50%" name="javascriptEditor">
+                            New javascript
                         </td>
-                        <td width="20%" height="100%">
-                            <div style="height:20%">
-                                <button id="submit" style="width:100%; height:100%">
-                                    SUBMIT
-                                    <br/>
-                                    or press 'ctrl+enter'
-                                </button> 
-                            </div>
-                            <div style="height:10%">
-                                <button style="width:100%; height:100%" id="stats">Statistics</button>
-                            </div>
-                            <div style="height:70%">
-                                <textarea id="output" style="width:100%; height:100%" disabled></textarea>
-                            </div>
+                        <td width="50%" name="mapEditor">
+                            New map
                         </td>
                     </tr>
                 </table>

@@ -37,6 +37,15 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #d0d0d0;
 }
 
+#newFileView {
+    color: white;
+    text-align: center;
+}
+
+#newFileView td {
+    border: 3px solid green;
+}
+
 .edit {
     background-image: url(../img/edit.png);
     background-repeat: no-repeat;

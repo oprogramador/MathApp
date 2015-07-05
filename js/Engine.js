@@ -110,9 +110,14 @@ var Engine;
                 addListeners();
             }
 
+            function newFile() {
+                $('#'+parameters.javascriptEditorId).show();
+            }
+
             this.getParameters = getParameters;
             this.getValue = getValue;
             this.setValue = setValue;
+            this.newFile = newFile;
 
             init();
         }
