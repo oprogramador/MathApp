@@ -9,6 +9,7 @@ var AppKernel;
 (function() {
     require([
         'ObjectUtils',
+        'FileManager',
         'Engine'
         ],
         {
@@ -24,23 +25,27 @@ var AppKernel;
                     submitId: 'submit',
                     iframeId: 'frame_input',
                     innerTextareaId: 'textarea',
+                    statsDialogTemplateId: 'statsDialogTemplate',
+                    statsId: 'stats',
+                },
+                fileManager: {
                     saveId: 'save',
                     fileListId: 'fileList',
                     fileTemplateId: 'fileTemplate',
                     inputTemplateId: 'inputTemplate',
-                    statsDialogTemplateId: 'statsDialogTemplate',
                     downloadAllId: 'downloadAll',
                     newId: 'new',
-                    statsId: 'stats',
                 }
             }
 
             var parameters;
+            var fileManager;
             var engine;
 
             function init() {
                 parameters = ObjectUtils.merge(defaultParameters, json);
                 engine = new Engine(parameters.engine);
+                fileManager = new FileManager(parameters.fileManager, engine);
             }
 
             function getEngine() {
