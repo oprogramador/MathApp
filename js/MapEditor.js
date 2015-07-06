@@ -15,15 +15,28 @@ function MapEditor(parameters) {
     }
 
     function makePdf(file) {
-        html2canvas($('#body'), {
-            onrendered: function(canvas) {     
-                var imgData = canvas.toDataURL('image/png');       
-                window.open(imgData);
-                //var doc = new jsPDF('p', 'mm');
-                //doc.addImage(imgData, 'PNG', 10, 10);
-                //doc.save(file.name+'.pdf');
-            }
-        });
+        var content = JSON.parse(file.content);
+        var img = new Image();
+        img.setAttribute('crossOrigin','anonymous');
+        img.src = 'http://maps.googleapis.com/maps/api/staticmap?center='+
+            content.center.A+','+content.center.F+
+            '&zoom='+
+            content.zoom+
+            '&scale=true&size=600x300&maptype=roadmap&format=png&visual_refresh=true&markers=color:yellow';
+        img.width = 1200;
+        img.height = 800;
+        for(var i=0; i<content.points.length; i++) img.src += '|'+content.points[i].A+','+content.points[i].F;
+        var canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        img.onload = function() {
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            var imgData = canvas.toDataURL('image/png');
+            var doc = new jsPDF('p', 'mm');
+            doc.addImage(imgData, 'PNG', 10, 10);
+            doc.save(file.name+'.pdf');
+        }
     }
 
     function addPoint(point) {
