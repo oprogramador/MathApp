@@ -43,6 +43,9 @@ function FileManager(parameters, editors) {
         $(document).on('click', '[id^=file-] [name=download]', function() {
             download(this);
         });
+        $(document).on('click', '[id^=file-] [name=pdf]', function() {
+            makePdf(this);
+        });
         $(document).on('click', '#newFileName [name=ok]', function() {
             enterInput();
         });
@@ -114,6 +117,14 @@ function FileManager(parameters, editors) {
         var files = JSON.parse(localStorage.files);
         var file = files[fileId];
         saveAs(new Blob([file.content], {type: 'text/plain;charset=utf-8'}), file.name+'.js');
+    }
+
+    function makePdf(element) {
+        var div = $(element).closest('div')[0];
+        var fileId = div.id.split('-')[1];
+        var files = JSON.parse(localStorage.files);
+        var file = files[fileId];
+        editors[file.type].makePdf(file);
     }
 
     function changeFileName(element) {

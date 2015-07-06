@@ -38,6 +38,13 @@ var Engine;
                 loadIframeEvents();
             }
 
+            function makePdf(file) {
+                var doc = new jsPDF();
+                doc.setFontSize(12);
+                doc.text(20, 20, file.content);
+                doc.save(file.name+'.pdf');
+            }
+
             function getValue() {
                 return editAreaLoader.getValue(parameters.inputId);
             }
@@ -118,6 +125,7 @@ var Engine;
             this.getValue = getValue;
             this.setValue = setValue;
             this.newFile = newFile;
+            this.makePdf = makePdf;
 
             init();
         }

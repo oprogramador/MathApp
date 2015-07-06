@@ -14,6 +14,18 @@ function MapEditor(parameters) {
         });
     }
 
+    function makePdf(file) {
+        html2canvas($('#body'), {
+            onrendered: function(canvas) {     
+                var imgData = canvas.toDataURL('image/png');       
+                window.open(imgData);
+                //var doc = new jsPDF('p', 'mm');
+                //doc.addImage(imgData, 'PNG', 10, 10);
+                //doc.save(file.name+'.pdf');
+            }
+        });
+    }
+
     function addPoint(point) {
         var icon = {
             path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
@@ -87,5 +99,6 @@ function MapEditor(parameters) {
     this.setValue = setValue;
     this.getValue = getValue;
     this.getMap = getMap;
+    this.makePdf = makePdf;
     init();
 }

@@ -53,6 +53,13 @@ h1, h2, h3, h4, h5, h6 {
     height: 32px;
 }
 
+.pdf {
+    background-image: url(../img/pdf.png);
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
+
 .delete {
     background-image: url(../img/delete.png);
     background-repeat: no-repeat;
