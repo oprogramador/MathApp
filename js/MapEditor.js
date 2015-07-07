@@ -78,7 +78,7 @@ function MapEditor(parameters) {
     }
 
     function init() {
-        if(typeof google.maps === 'undefined') return;
+        if(typeof google === 'undefined' || typeof google.maps === 'undefined') return;
         createMap();
         addListeners();
     }
