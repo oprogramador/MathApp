@@ -12,6 +12,7 @@ var AppKernel;
         'FileManager',
         'Engine',
         'MapEditor',
+        'SvgEditor',
         ],
         {
             callback: loadClass
@@ -41,21 +42,27 @@ var AppKernel;
                 },
                 mapEditor: {
                     mapCanvasId: 'mapCanvas',
-                }
+                },
+                svgEditor: {
+                    diagramEditorId: 'diagramEditor',
+                },
             }
 
             var parameters;
             var fileManager;
             var engine;
             var mapEditor;
+            var svgEditor;
 
             function init() {
                 parameters = ObjectUtils.merge(defaultParameters, json);
                 engine = new Engine(parameters.engine);
                 mapEditor = new MapEditor(parameters.mapEditor);
+                svgEditor = new SvgEditor(parameters.svgEditor);
                 fileManager = new FileManager(parameters.fileManager, {
                         javascriptEditor: engine,
                         mapEditor: mapEditor,
+                        svgEditor: svgEditor,
                 });
             }
 

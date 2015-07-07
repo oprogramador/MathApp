@@ -7,7 +7,9 @@
 <title>MathApp</title>
 <meta charset="utf-8"/>
 <script src="lib/jquery-1.11.1.min.js"></script>
+<script src="lib/jquery-migrate-1.0.0.js"></script>
 <script src="lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script src="lib/jquery.ba-postmessage.min.js"></script>
 <script src="lib/parallel.js"></script>
 <script src="lib/edit_area/edit_area_full.js"></script>
 <script src="lib/FileSaver.min.js"></script>
@@ -56,15 +58,23 @@
                 <div name="mapEditor" style="display:none">
                     <div id="mapCanvas" style="width:500px;height:380px;"></div>
                 </div>
+                <div name="svgEditor" style="display:none">
+                    <iframe src="../diagramEditor/view.html" id="diagramEditor" style="width:800px;height:600px;"></iframe>
+                </div>
             </div>
             <div id="newFileView" style="display:none">
                 <table width="800px" height="400px"> 
-                    <tr>
+                    <tr height="50%">
                         <td width="50%" name="javascriptEditor">
                             New javascript
                         </td>
                         <td width="50%" name="mapEditor">
                             New map
+                        </td>
+                    </tr>
+                    <tr height="50%">
+                        <td width="50%" name="svgEditor">
+                            New diagram 
                         </td>
                     </tr>
                 </table>
