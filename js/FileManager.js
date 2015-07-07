@@ -166,6 +166,7 @@ function FileManager(parameters, editors) {
         openedFileId = fileId;
         var files = JSON.parse(localStorage.files);
         if(files[fileId].type !== openedEditorName) changeEditorAtFileOpen(files[fileId]);
+        $('#'+parameters.newFileViewId).hide();
         getOpenedEditor().setValue(files[fileId].content);
     }
 
