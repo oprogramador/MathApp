@@ -10,7 +10,11 @@ function NumberDoctor(text) {
     var allPrimes;
 
     function generateAllNumbers() {
-        allNumbers = text.match(/[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/g).map(function(x){ return parseFloat(x); });
+        try {
+            allNumbers = text.match(/[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/g).map(function(x){ return parseFloat(x); });
+        } catch(e) {
+            allNumbers = [];
+        }
     }
 
     function generateAllIntegers() {
