@@ -6,19 +6,20 @@
 
 function SvgEditor(parameters) {
     function init() {
-
+        addEventListener('message', function(e) {
+            alert(e.data);
+        }, false);
     }
 
     function getValue() {
-        var iframe = document.getElementById(parameters.diagramEditorId);
-        $.postMessage('blableee', 'file:///home/pierre/pierre_copy/programming/css/diagramEditor/view.html', iframe);
-        //iframe.contentWindow.postMessage('serialize', location.href);
+        var iframe = $('#diagramEditor').contents().find('body');
+        var result = iframe[0].onchange(JSON.stringify({msg: 'serialize'}));
+        return result;
     }
 
     function setValue(value) {
-        var iframe = document.getElementById(parameters.diagramEditorId);
-        $.postMessage('blableee', 'file:///home/pierre/pierre_copy/programming/css/diagramEditor/view.html', iframe);
-        //iframe.contentWindow.postMessage('serialize', location.href);
+        var iframe = $('#diagramEditor').contents().find('body');
+        var result = iframe[0].onchange(JSON.stringify({msg: 'unserialize', data: value}));
     }
 
     function makePdf(file) {
