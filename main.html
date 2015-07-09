@@ -23,84 +23,136 @@
 <link rel="stylesheet" href="lib/jquery-ui-1.11.4/jquery-ui.theme.min.css"/>
 <link rel="stylesheet" href="css/main.css"/>
 </head>
-<body>
-<h1>MathApp</h1>
-<h4>Interactive editor</h4>
-<table>
-    <tr>
+<body class="background">
+<h1 class="foreground">MathApp</h1>
+<h4 class="foreground">Interactive editor</h4>
+<button id="settingsButton">Settings</button>
+<div id="settingsPanel" style="display:none">
+    <table>
+        <tr>
+            <th>
+                <label class="foreground" for="settings-backgroundColor">Background color</label>
+            </th>
+            <td>
+                <input name="backgroundColor" id="settings-backgroundColor" type="color"/>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <label class="foreground" for="settings-foregroundColor">Foreground color</label>
+            </th>
+            <td>
+                <input name="foregroundColor" id="settings-foregroundColor" type="color"/>
+            </td>
+        </tr>
         <td>
-            <div id="generalEditor">
-                <div name="javascriptEditor">
-                    <table width="800px" height="400px">
-                        <tr width="100%" height="100%">
-                            <td width="60%" height="100%">
-                                <textarea id="input" style="width:100%; height:100%"></textarea>
+            <th>
+                <label class="foreground" for="settings-layout">Layout</label>
+            </th>
+            <td>
+                <div id="settings-layout">
+                    <div>
+                        <input name="layout" type="radio" value="1" id="settings-layout-1"/>
+                        <label for="settings-layout-1">
+                            <img src="img/layout-1.png" style="width:300px"/>
+                        </label>
+                    </div>
+                    <div>
+                        <input name="layout" type="radio" value="2" id="settings-layout-2"/>
+                        <label for="settings-layout-2">
+                            <img src="img/layout-2.png" style="width:300px"/>
+                        </label>
+                    </div>
+                </div>
+            </td>
+        </td>
+        <tr>
+            <td colspan="2">
+                <button name="submit">SUBMIT</button>
+            </td>
+            <td colspan="2">
+                <button name="cancel">cancel</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="appContent">
+    <table>
+        <tr>
+            <td id="generalEditor-td">
+                <div id="generalEditor">
+                    <div name="javascriptEditor">
+                        <table width="800px" height="400px">
+                            <tr width="100%" height="100%">
+                                <td width="60%" height="100%">
+                                    <textarea id="input" style="width:100%; height:100%"></textarea>
+                                </td>
+                                <td width="20%" height="100%">
+                                    <div style="height:20%">
+                                        <button id="submit" style="width:100%; height:100%">
+                                            SUBMIT
+                                            <br/>
+                                            or press 'ctrl+enter'
+                                        </button> 
+                                    </div>
+                                    <div style="height:10%">
+                                        <button style="width:100%; height:100%" id="stats">Statistics</button>
+                                    </div>
+                                    <div style="height:70%">
+                                        <textarea id="output" style="width:100%; height:100%" disabled></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div name="mapEditor" style="display:none">
+                        <div id="mapCanvas" style="width:500px;height:380px;"></div>
+                    </div>
+                    <div name="svgEditor" style="display:none">
+                        <iframe src="../diagramEditor/view.html" id="diagramEditor" style="width:800px;height:600px;"></iframe>
+                    </div>
+                </div>
+                <div id="newFileView" style="display:none">
+                    <table width="800px" height="400px"> 
+                        <tr height="50%">
+                            <td width="50%" name="javascriptEditor">
+                                New javascript
                             </td>
+                            <td width="50%" name="mapEditor">
+                                New map
+                            </td>
+                        </tr>
+                        <tr height="50%">
+                            <td width="50%" name="svgEditor">
+                                New diagram 
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td id="fileManager-td">
+                <div id="fileManager">
+                    <table width="240px" height="400px">
+                        <tr width="100%" height="100%">
                             <td width="20%" height="100%">
-                                <div style="height:20%">
-                                    <button id="submit" style="width:100%; height:100%">
-                                        SUBMIT
-                                        <br/>
-                                        or press 'ctrl+enter'
-                                    </button> 
+                                <div id="fileList"></div>
+                                <div>
+                                    <button style="width:100%; height:20%" id="new">New</button>
                                 </div>
-                                <div style="height:10%">
-                                    <button style="width:100%; height:100%" id="stats">Statistics</button>
+                                <div>
+                                    <button style="width:100%; height:20%" id="save">Save</button>
                                 </div>
-                                <div style="height:70%">
-                                    <textarea id="output" style="width:100%; height:100%" disabled></textarea>
+                                <div>
+                                    <button style="width:100%; height:20%" id="downloadAll">Download all</button>
                                 </div>
                             </td>
                         </tr>
                     </table>
                 </div>
-                <div name="mapEditor" style="display:none">
-                    <div id="mapCanvas" style="width:500px;height:380px;"></div>
-                </div>
-                <div name="svgEditor" style="display:none">
-                    <iframe src="../diagramEditor/view.html" id="diagramEditor" style="width:800px;height:600px;"></iframe>
-                </div>
-            </div>
-            <div id="newFileView" style="display:none">
-                <table width="800px" height="400px"> 
-                    <tr height="50%">
-                        <td width="50%" name="javascriptEditor">
-                            New javascript
-                        </td>
-                        <td width="50%" name="mapEditor">
-                            New map
-                        </td>
-                    </tr>
-                    <tr height="50%">
-                        <td width="50%" name="svgEditor">
-                            New diagram 
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
-        <td>
-            <div id="fileManager">
-                <table width="240px" height="400px">
-                    <tr width="100%" height="100%">
-                        <td width="20%" height="100%">
-                            <div id="fileList"></div>
-                            <div>
-                                <button style="width:100%; height:20%" id="new">New</button>
-                            </div>
-                            <div>
-                                <button style="width:100%; height:20%" id="save">Save</button>
-                            </div>
-                            <div>
-                                <button style="width:100%; height:20%" id="downloadAll">Download all</button>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
-</table>
+            </td>
+        </tr>
+    </table>
+</div>
 <div style="display:none;" id="fileTemplate">
     <div style="height:32px" id="%id%">
         <table>
