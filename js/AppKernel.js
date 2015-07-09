@@ -14,6 +14,7 @@ var AppKernel;
         'MapEditor',
         'SvgEditor',
         'SettingsManager',
+        'AboutManager',
         ],
         {
             callback: loadClass
@@ -53,7 +54,11 @@ var AppKernel;
                     settingsPanelId: 'settingsPanel',
                     fileManagerTdId: 'fileManager-td',
                     generalEditorTdId: 'generalEditor-td',
-                } 
+                },
+                aboutManager: {
+                    aboutButtonId: 'aboutButton',
+                    aboutDialogId: 'aboutDialog',
+                }
             }
 
             var parameters;
@@ -62,6 +67,7 @@ var AppKernel;
             var mapEditor;
             var svgEditor;
             var settingsManager;
+            var aboutManager;
 
             function init() {
                 parameters = ObjectUtils.merge(defaultParameters, json);
@@ -70,6 +76,7 @@ var AppKernel;
                 svgEditor = new SvgEditor(parameters.svgEditor);
                 settingsManager = new SettingsManager(parameters.settingsManager);
                 settingsManager.apply();
+                var aboutManager = new AboutManager(parameters.aboutManager);
                 fileManager = new FileManager(parameters.fileManager, {
                         javascriptEditor: engine,
                         mapEditor: mapEditor,

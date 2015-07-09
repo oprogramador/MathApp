@@ -1,0 +1,67 @@
+#aboutDialog p {
+	text-align:justify;
+	position:relative;
+}
+
+#aboutDialog p img {
+	position:absolute;
+	top:0px;
+	right:0px;
+}
+
+.beam {
+	float:right;
+	border:0px solid;
+	clear:both;
+}
+
+.beam {
+	width:0px;
+	clear:both;
+}
+
+.beam + div{
+	width:0px;
+	clear:both;
+}
+
+.beam + div + div{
+	width:0px;
+	clear:both;
+}
+
+
+.beam + div + div{
+	width:0px;
+	clear:both;
+}
+
+.beam + div + div + div {
+	width:0px;
+	clear:both;
+}
+
+.beam + div + div + div+ div {
+	width:200px;
+	clear:both;
+}
+.beam + div + div + div + div + div{
+	width:300px;
+	clear:both;
+}
+.beam + div + div + div + div + div + div{
+	width:290px;
+	clear:both;
+}
+.beam + div + div + div + div + div + div + div{
+	width:260px;
+	clear:both;
+}
+.beam + div + div + div + div + div + div + div + div{
+	width:230px;
+	clear:both;
+}
+.beam + div + div + div + div + div + div + div + div + div{
+	width:200px;
+	clear:both;
+}
