@@ -23,6 +23,7 @@ function SvgEditor(parameters) {
     }
 
     function makePdf(file) {
+        setValue(file.content);
         var svg = $('#'+parameters.diagramEditorId).contents().find('svg')[0];
         svgToDataURL(svg, 'image/png', {
             callback: function(data) {
