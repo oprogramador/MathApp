@@ -12,18 +12,25 @@ function SvgEditor(parameters) {
     }
 
     function getValue() {
-        var iframe = $('#diagramEditor').contents().find('body');
+        var iframe = $('#'+parameters.diagramEditorId).contents().find('body');
         var result = iframe[0].onchange(JSON.stringify({msg: 'serialize'}));
         return result;
     }
 
     function setValue(value) {
-        var iframe = $('#diagramEditor').contents().find('body');
+        var iframe = $('#'+parameters.diagramEditorId).contents().find('body');
         var result = iframe[0].onchange(JSON.stringify({msg: 'unserialize', data: value}));
     }
 
     function makePdf(file) {
-
+        var svg = $('#'+parameters.diagramEditorId).contents().find('svg')[0];
+        svgToDataURL(svg, 'image/png', {
+            callback: function(data) {
+                var doc = new jsPDF('p', 'mm');
+                doc.addImage(data, 'PNG', 10, 10);
+                doc.save(file.name+'.pdf');
+            }
+        });
     }
 
     this.getValue = getValue;
